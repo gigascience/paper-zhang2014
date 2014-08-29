@@ -1,0 +1,49 @@
+This directory contains the pipeline for detecting gene lost in 48 avian genomes.
+
+
+Authors: Qiye Li, liqiye@genomics.org.cn
+         Lijun Jin, jinlijun@genomics.org.cn
+
+
+Firstly, prepare the input files. There should be two diretory, raw/ and genome/, in the current directory.
+"raw/" contains gff and genewise files of the 48 birds and 5 outgroup species, and the names should be "Short_name.gff.gz" and "Short_name.genewise.gz" respectively. You can get them by mapping all the 20,683 human genes to the 5 non-avian reptile genomes and the 48 avian genomes with TBLASTN (E-value <= 1e-2) and determining gene structure of each potential reptile locus by GeneWise. See ./bird_name.txt and ./outgroups_name.txt for the short name of each species.
+"genome/" contains the genome fasta files of the 48 birds and 5 outgroup species, the names of which should be "Full_name/Full_name.fa". You should also prepare the blast database file for each genome in corresponding directory using command line "formatdb -i Full_name.fa -p F". See ./bird_name.txt and ./outgroups_name.txt for the full name of each species. 
+
+The format for Short_name.gff.gz file should be (between the paired "#########"):
+#########
+16      GeneWise        mRNA    414284  415192  44.51   -       .       ID=ENST00000219069-D2;Shift=0;
+16      GeneWise        CDS     414284  415192  .       -       0       Parent=ENST00000219069-D2;
+#########
+
+The format for Short_name.genewise.gz file should be (between the paired "#########", only the score [401.69] and query ID [ENST00000219069-D2] are used in the subsequent analysis):
+#########
+Bits   Query         start end Target      start end   idels introns
+401.69 ENST00000219069-D2  380  683 16_412281_423185 2912 2004    0    0
+//
+Gene 1
+Gene 2912 2004
+  Exon 2912 2004 phase 0
+       Supporting 2912 2370 380 560
+	   Supporting 2369 2004 562 683
+//
+16_412281_423185        GeneWise        match   2912    2004    401.69  -       .       16_412281_423185-genewise-prediction-1
+16_412281_423185        GeneWise        cds     2912    2004    0.00    -       0       16_412281_423185-genewise-prediction-1
+//
+#########
+
+In addition, the human gene set as reference also should be in the current directory. It was downloaded from Ensembl (release-60).After collapsing redundant genes and removing mitochondrial genes, you will finally obtain 20,683 human genes listed in ./human.gene.list. There should be the following files of the 20,683 human genes: 
+./human.list.gtf.filter.gff, gff file of the 20,683 human genes, the format is as described above;
+./human.list.gtf.filter.pep, pep file of the 20,683 human genes;
+./homo_sapiens.60.ann.gz, annotation of the human genes, downloaded from Ensembl (release-60) through BioMart, each column from left to right is Ensembl Gene ID, Ensembl Transcript ID, Associated Gene Name, Description, GO Term Accession (bp), GO Term Name (bp) and GO Term Definition (bp), respectively;
+./human.best.ann.disease, the column 1 should be Gene ID of each human genes (consistent with the Gene ID in gff file and pep file), the last 3 columns should be Gene Name, Description and HGMD Disease, respectively.
+
+
+The pipeline is divided into the following three steps:
+Step 1: Remove the redundant protein sequences predicted by GeneWise. Reptile and avian loci that mapped by multiple human genes are collapsed by keeping the query with the highest GeneWise score.
+        using the scripts "non_redundant_highQ.sh" and "non_redundant_lowQ.sh". These two scripts are independent, as "highQ" for outgroups and "lowQ" for all 48 birds.
+
+Step 2: Align the non-redundant proteins predicted by GeneWise in each species to the human proteins using BLASTP, and find the best hit with the highest BLAST score.
+        using the scripts "gff_improve_highQ.sh" and "gff_improve_lowQ.sh". These two scripts are independent, as "highQ" for outgroups and "lowQ" for all 48 birds.
+
+Step 3: Detect the genes that are absent in all the 48 avian genomes but present in at least one of the five non-avian reptile genomes. A gene is present means it is with an aligning rate > 50% relative to the query human protein and without any frameshifts or premature stop codons. And a gene were defined as absent if it fit the following criteria: a) had no predicted record; b) with predicted record but having an aligning rate < 30% relative to the query human gene; c) with frameshifts or premature stop codons.
+        using the script "detect_lost_gene.sh".

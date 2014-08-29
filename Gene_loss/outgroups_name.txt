@@ -1,0 +1,6 @@
+#Full_name	Short_name
+Chelonia_Mydas	CHEMY
+Pelodiscus_sinensis	PELSI
+Crocodylus_porosus	CROPO
+Gavialis_gangeticus	GAVGA
+Alligator_mississippiensisV2	ALLMI

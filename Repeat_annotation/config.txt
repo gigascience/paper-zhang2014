@@ -1,0 +1,18 @@
+#####################
+####software path
+#####################
+
+find_repeat = $Bin/find_repeat.pl
+ltr_path = $Bin/LTR_FINDER-1.0.5
+muscle = $Bin/muscle
+pals_path = $Bin/pals
+piler = $Bin/piler-sz/
+piler_path= $Bin/piler
+repeatmasker = $Bin/RepeatMasker
+repeatmodeler_path = $Bin/RepeatModeler
+repeatscout_path = $Bin/RepeatScout-1.0.5
+trf = $Bin/trf404.linux.exe
+proteinmask = $Bin/RepeatProteinMask
+
+##tedna (TE DNA) are converted from repeatmaskerlibraries-20110920
+tedna = /DATA/RepBase16.10/RepeatMaskerLib.embl.lib

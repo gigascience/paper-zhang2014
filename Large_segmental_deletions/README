@@ -1,0 +1,37 @@
+#########
+Abstract:
+--------
+	These files are shell and perl scripts used for identification of large segmental deletions mentioned in
+   		 	Manuscript Section "Large segmental deletions in avian ancestral lineage" 
+		and 
+			SOM2 "e) Identification of large segmental deletions (lost syntenic blocks) in the modern birds".
+
+#########
+Usage:
+------
+	Run "Identification_of_large_segmental_deletions.sh" to get lost syntenic blocks 
+	Author: Zongji Wang; 
+	Email: wangzongji@genomics.cn;
+
+#########
+Description:
+------------
+	The pipeline can do the whole work, from calculating the ratio of lost ortholog pairs (LOP) to super-large windows (i.e. lost syntenic blocks). Fistly, You should provide orthologous gene file to "Identification_of_large_segmental_deletions.sh".
+
+
+	There are mainly 10 steps for identification of large segmental deletions and 2 more step, returning the results accordingly. These steps are:
+	0) provided orthologous gene list/file;
+	1) calculated the ratio of lost ortholog pairs (LOP) of genes (using overlapping 5 consecutive genes with a step size of 1 gene);
+	2) chose the windows (with >= 0.8 LOP in ostrich);
+	3) chose the windows (with < 0.5 LOP in at least one of the two non-avian reptiles);
+	4) merged windows;
+	5) built psuedo super-large windows;
+	6) returned the results accordingly;
+	7) obtained right super-large windows;
+	8) marked super-large windows;
+	9) picked up original window;
+	10) sorted out these super-large windows in coordinately order;
+	11,12) returned the results accordingly.
+
+#########
+

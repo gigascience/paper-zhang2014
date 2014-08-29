@@ -1,0 +1,3 @@
+formatdb = /opt/blc/genome/biosoft/blast-2.2.23/bin/formatdb
+blastall = /opt/blc/genome/biosoft/blast-2.2.23/bin/blastall
+genewise = /opt/blc/genome/bin/genewise

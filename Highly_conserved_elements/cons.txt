@@ -1,0 +1,1 @@
+/ifs5/PC_PA_UN/ANIMAL/USER/GROUP1/hujiang/07_conv/06_phastcons/00_48_birds_not_filter_phastcons/04_average_parameters/01_ave.cons.mod/chr10.10000001-11000000.ss.cons.mod

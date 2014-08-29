@@ -1,0 +1,2 @@
+##The 'lastz_CNM.pl' was used to generate the pairwise whole genome alignment with LASTZ and chainNet packages. In the following command line, 'chicken_genome.masked.fa' is the reference genome after masking the repeat sequences to 'N' bases. 'other_bird.masked.fa' is the query genome. Other parameters are transited to LASTZ or chainNet programs.
+perl  bin/lastz_CNM.pl --hspthresh 2200 --inner 2000 --ydrop 3400 --gappedthresh 10000 --scores HoxD55 --chain --linearGap loose --cuts 50 --cpu 50 chicken_genome.masked.fa other_bird.masked.fa &

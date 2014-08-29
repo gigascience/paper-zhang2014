@@ -1,0 +1,23 @@
+#2011-4-8
+bug fixed : fix the bug that --scaf can't quote the file from others' directory path .
+#2011-4-19
+add function : add optional argument of --gz , program will generate or user provide the gapread.fa.gz to fill the gap . 
+dd function  : add abs_path and get_mem function , abs_path use to replace the relative path to full path , the get_mem use to judge whether user has the level power to use compute node of huge memory .
+#2011-6-29
+bug fixed : fix the bug of kgf :
+1. problem describe : after kgf gap filling , the remain gaps length will form a peak at the point of 31 .
+   reason : the sequence that kgf filled can't find any overlap with two sides contig , so add 31 N to mark this gap .
+   fixed : give up filling the gap , leave the gap to follow-up handle .
+2. problem describe : after kgf gap filling , there may have the contigs only 1 base ,like : NgN
+   reason : kgf only get 1 base sequence , but when link to two sides contig , don't judge this sitution .
+   fixed : give up filling the gap , leave the gap to follow-up handle .
+3. the code bug : array out of range . Have been fixed .
+#2011-7-20
+bug fixed : 
+1. fix the bug that for some gap , kgf may be connect the end of contig sequence as the gap sequence , it will be cause insertion .
+2. fix the bug that while kgf fill the gap , it will compute the path consist of reads falling gap , the reads start from the end 
+of both side contig , when the path contain the end of both contig , and the contigs has overlap , it will cause 200 bp insertion .
+#2011-7-25
+update: krs1.12 update to krs1.13 . For krs1.13 , it will get more reads from gap while krs1.12 only get a little .
+#2013-11-27
+update: krs1.13 add the function to deal with the sitution of "q=xxx" in configure file . the "q" refer to the "single qual file" ; 

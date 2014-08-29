@@ -1,0 +1,34 @@
+#########
+Abstract:
+--------
+	The pipeline and input files are used for quantifying and comparing synteny in birds relative to mammals, which mentioned in 
+			Manuscript Section "Conserved gene synteny"
+		and 
+			SOM3 "Conserved gene synteny".
+	
+#########
+Usage:
+------
+    The shell scripts must be running in order to compare synteny of birds and mammals using the following sequence:
+		To start with running "01.Birds/Call.OSBs.sh" and "02.Mammals/Call.OSBs.sh";
+		next, run "03.Result/Merge.OSBs.sh";
+		finally, run two R scripts (i.e. "03.Result/Boxplot.ave.div.data.R" and "03.Result/Both.ave.div.data.R"), respectively.
+
+	Author: Zongji Wang;
+	Email: wangzongji@genomics.cn;
+
+#########
+Structure & Description:
+------------------------
+
+This directory includes four subdirectories listed as follows:
+	1. bin/	# contains the perl scripts;
+	2. 01.Birds/	# contains input files and statistical results of syntenic blocks of any two birds;
+	3. 02.Mammals/	# contains input files and statistical results of syntenic blocks of any two mammals;
+	4. 03.Result/	# contains final merged result and plots;
+
+	To run this pipeline, firstly, you need to provide a species name list (i.e. "species.list"), gff files, a file including divergence time between any two species ("i.e species.list.div") and corresponding orthologous gene files. 
+	Then these perl scripts stored within "bin" directory would identify synteny from each pair of two-avian/mammalian genomes and examine the fraction of orthologous genes based on syntenic and best reciprocal blast matches.
+	Lastly, all statistical results come from 22 birds and 22 mammals would be merged and modified to generate plots (Fig 2D).
+
+#########
